@@ -1,9 +1,8 @@
-%p#notice= notice
+%h1 Category: #{@category.name}
 
-%p
-  %b Name:
-  = @category.name
-
-= link_to 'Edit', edit_category_path(@category)
-\|
-= link_to 'Back', categories_path
+@category.pages.each do |page|
+  %article.clearfix
+    %h2 = link_to page.title, url_for_page(page)
+    %p.text-muted = page.created_at.to_formatted_s :long
+    =page.body.html_safe
+  %hr

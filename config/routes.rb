@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'menus/index'
+
+  get 'menus/new'
+
+  get 'menus/create'
+
+  get 'menus/update'
+
+  get 'menus/edit'
+
+  get 'menus/destroy'
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :categories, only: [:show]
   resources :pages, only: [:show]

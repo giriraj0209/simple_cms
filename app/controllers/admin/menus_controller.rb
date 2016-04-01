@@ -8,6 +8,7 @@ class MenusController < ApplicationController
 
   def new
     @menu = Menu.new
+    10.times{@menu.menu_items.build}
   end
 
   def create
@@ -28,7 +29,7 @@ class MenusController < ApplicationController
   end
 
   def edit
-    
+    10.times{@menu.menu_items.build}
   end
 
   def destroy
@@ -41,7 +42,7 @@ class MenusController < ApplicationController
   
   protected
   def menu_params
-    params.require(:menu).permit(:name)
+    params.require(:menu).permit(:name, :menu_items_attributes => [:title, :url, :id])
   end
 
   def find_param

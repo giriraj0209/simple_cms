@@ -1,5 +1,13 @@
 %h1= @page.title
 
+%p
+  %em=time_ago_in_words @page.created_at
+
+%dl
+  -@page.fields.each do |field|
+    %dt=field.field_definition.key
+    %dd=field.value
+    
 = simple_format @page.body
 
 = link_to 'Edit', edit_admin_page_path(@page)

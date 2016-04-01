@@ -16,9 +16,11 @@ class PagesController < ApplicationController
 
   # GET /pages/new
   def new
-    @page = Page.new
+    @page = Page.new type: Type.where(name: params[:type]).first
+    @page.type.field_definitions.each do |definition|
+      @page.fields.build field_definition: definition
+    end
   end
-
   # GET /pages/1/edit
   def edit
   end
@@ -30,6 +32,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
+        Rails.application.reload_routes!
         format.html { redirect_to admin_pages_path(@page), notice: 'Page was successfully created.' }
         format.json { render :show, status: :created, location: @page }
       else
@@ -71,7 +74,7 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title, :body, :slug, :category_id)
+      params.require(:page).permit(:type_id, :title, :body, :slug, :category_id, fields_attributes: [:field_definition_id, :id,:value])
     end
 end
 end

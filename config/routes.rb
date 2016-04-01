@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   resources :pages, only: [:show]
 
   namespace :admin do
+  resources :types, except: [:show]
   resources :pages
   resources :categories
-  resources :menus
+  resources :menus, except: [:show]
   end
   root 'admin/pages#index'
   Page.where.not("slug", nil).all.each do |page|

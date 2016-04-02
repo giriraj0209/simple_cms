@@ -3,6 +3,7 @@ class MenusController < ApplicationController
   before_action :find_param, only: [:update, :edit, :destroy ]
   
   def index
+    
     @menus = Menu.all
   end
 
